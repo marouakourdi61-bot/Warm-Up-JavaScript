@@ -37,7 +37,6 @@ console.log(`Total panier : ${totalPanier} DH`);
 // calcule le nombre total d'articles (somme des quantités)
 
 const nombreArticles = panier.reduce(
-    (total, article) => total + article.quantite, 0
-);
-
-console.log(`Nombre d'articles : ${nombreArticles}`);
+     (total, article) => total + article.quantite, 0
+     );
+ console.log(`Nombre d'articles : ${nombreArticles}`);

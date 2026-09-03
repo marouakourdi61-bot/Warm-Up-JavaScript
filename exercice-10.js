@@ -9,9 +9,13 @@ const ventes = [
 
 //Calcule le chiffre d'affaires total de l'équipe
 function calculerCATotal(ventes) {
-    return ventes.reduce((total, vente) => {
-        return total + vente.montant;
-    }, 0);
+    let total = 0;
+
+    for (let vente of ventes) {
+        total = total + vente.montant;
+    }
+
+    return total;
 }
 
 // Trouve la vente la plus élevée (produit, vendeur et montant)
@@ -43,14 +47,16 @@ function calculerCAParVendeur(ventes) {
 
 //Calcule la moyenne par vendeur, puis liste ceux qui sont au-dessus de cette moyenne
 
-function calculerMoyenneParVendeur(caParVendeur) {
-    const vendeurs = Object.values(caParVendeur);
+function calculerMoyenne(ca) {
+    let total = 0;
+    let nombreVendeurs = 0;
 
-    const total = vendeurs.reduce((somme, ca) => {
-        return somme + ca;
-    }, 0);
+    for (let vendeur in ca) {
+        total = total + ca[vendeur];
+        nombreVendeurs++;
+    }
 
-    return total / vendeurs.length;
+    return total / nombreVendeurs;
 }
 
 function trouverVendeursAuDessusMoyenne(caParVendeur, moyenne) {
@@ -62,5 +68,44 @@ function trouverVendeursAuDessusMoyenne(caParVendeur, moyenne) {
 
 //Écris genererRapport(ventes) qui retourne le texte du rapport prêt à afficher
 function genererRapport(ventes) {
-    
+
+    let total = calculerCATotal(ventes);
+
+    let meilleure = trouverMeilleureVente(ventes);
+
+    let ca = calculerCAParVendeur(ventes);
+
+    let moyenne = calculerMoyenne(ca);
+
+    let auDessus = trouverVendeursAuDessusMoyenne(ca, moyenne);
+
+    let rapport = "=== RAPPORT DES VENTES ===\n";
+
+    rapport = rapport + "Chiffre d'affaires total : " + total + " DH\n";
+
+    rapport = rapport + "Meilleure vente : "
+        + meilleure.produit
+        + " (" + meilleure.vendeur + ") - "
+        + meilleure.montant + " DH\n";
+
+    rapport = rapport + "CA par vendeur :\n";
+
+    for (let vendeur in ca) {
+        rapport = rapport + "  "
+            + vendeur
+            + " : "
+            + ca[vendeur]
+            + " DH\n";
+    }
+
+    rapport = rapport + "Moyenne par vendeur : "
+        + moyenne.toFixed(2)
+        + " DH\n";
+
+    rapport = rapport + "Au-dessus de la moyenne : "
+        + auDessus.join(", ");
+
+    return rapport;
 }
+
+console.log(genererRapport(ventes));

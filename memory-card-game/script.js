@@ -4,18 +4,18 @@ const cards = [
     "kiwi.jpg",
     "Raisin.jpg",
     "sourise.jpg",
-    "stawberry.jpg"
+    "strawberry.jpg"
 ];
 
 const gameCards = [...cards, ...cards];
 
 gameCards.sort(() => Math.random() - 0.5);
 
-console.log(gameCards);
+// console.log(gameCards);
 
 gameCards.sort(() => Math.random() - 0.5);
 
-console.log(gameCards);
+// console.log(gameCards);
 
 // dom
 
@@ -52,9 +52,11 @@ function createCards() {
 
         img.src = `assets/images/${image}`;
 
-        img.alt = "Image de la carte";
+        img.alt = "Image de carte";
 
         card.dataset.image = image;
+
+        card.addEventListener("click", handleCardClick);
 
         card.appendChild(img);
 
@@ -62,4 +64,13 @@ function createCards() {
     });
 }
 
-createCards();
+ createCards();
+
+function handleCardClick(event) {
+
+    const card = event.currentTarget;
+
+    card.classList.add("flipped");
+
+    // console.log(card);
+}

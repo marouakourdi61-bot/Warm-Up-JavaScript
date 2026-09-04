@@ -93,10 +93,23 @@ function CardClick(event) {
 
 function checkmatch() {
     if (firstCard.dataset.image === secondCard.dataset.image) {
-        console.log("Match");
+
+        firstCard.classList.add("matched");
+        secondCard.classList.add("matched");
+        // console.log("Match");
     }
     else {
-        console.log("Pas match");
+        // console.log("Pas match");
+
+        setTimeout(() => {
+
+            firstCard.classList.remove("flipped");
+            secondCard.classList.remove("flipped");
+
+            firstCard = null;
+            secondCard = null;
+
+        }, 1000);
 
     }
 }

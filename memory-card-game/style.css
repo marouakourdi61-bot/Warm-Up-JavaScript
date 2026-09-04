@@ -1,0 +1,115 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+}
+
+.game {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+/* Compteurs */
+
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 25px;
+}
+
+.stats p {
+    font-size: 18px;
+}
+
+/* Grille */
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+/* Carte */
+
+.card {
+    height: 160px;
+    background-color: #333;
+    border-radius: 10px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+/* Image cachée */
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+}
+
+/* Carte retournée */
+
+.card.flipped img {
+    display: block;
+}
+
+/* Paire trouvée */
+
+.card.matched {
+    border: 4px solid green;
+    cursor: default;
+}
+
+/* Message */
+
+#message {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 20px;
+}
+
+/* Bouton */
+
+#restart {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#restart:hover {
+    background-color: #555;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    .game-board {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card {
+        height: 140px;
+    }
+
+    .stats {
+        flex-direction: column;
+        gap: 5px;
+    }
+}

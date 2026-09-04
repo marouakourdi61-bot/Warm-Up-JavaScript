@@ -109,7 +109,7 @@ function checkmatch() {
             firstCard = null;
             secondCard = null;
 
-        }, 1000);
+        },1000 );
 
     }
 }

@@ -13,9 +13,6 @@ gameCards.sort(() => Math.random() - 0.5);
 
 // console.log(gameCards);
 
-gameCards.sort(() => Math.random() - 0.5);
-
-// console.log(gameCards);
 
 // dom
 
@@ -36,9 +33,9 @@ let secondCard = null;
 
 let lockBoard = false;
 
-let moves = 0;
+let coups = 0;
 
-let matchedPairs = 0;
+let pairesTrouves = 0;
 
 function createCards() {
 
@@ -56,7 +53,7 @@ function createCards() {
 
         card.dataset.image = image;
 
-        card.addEventListener("click", handleCardClick);
+        card.addEventListener("click", CardClick);
 
         card.appendChild(img);
 
@@ -64,13 +61,44 @@ function createCards() {
     });
 }
 
- createCards();
+createCards();
 
-function handleCardClick(event) {
+function CardClick(event) {
 
     const card = event.currentTarget;
 
+    if (card === firstCard) {
+        return;
+    }
+
     card.classList.add("flipped");
+
+    if (firstCard === null) {
+
+        firstCard = card;
+
+        return;
+    }
+
+    secondCard = card;
+
+    coups++;
+
+    movesElement.textContent = coups;
+
+    checkmatch();
 
     // console.log(card);
 }
+
+function checkmatch() {
+    if (firstCard.dataset.image === secondCard.dataset.image) {
+        console.log("Match");
+    }
+    else {
+        console.log("Pas match");
+
+    }
+}
+
+

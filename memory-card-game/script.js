@@ -9,7 +9,7 @@ const cards = [
 
 const gameCards = [...cards, ...cards];
 
-gameCards.sort(() => Math.random() - 0.5);
+function shuffleCards() { gameCards.sort(() => Math.random() - 0.5); }
 
 // console.log(gameCards);
 
@@ -67,6 +67,10 @@ function CardClick(event) {
 
     const card = event.currentTarget;
 
+    if (lockBoard) {
+        return;
+    }
+
     if (card === firstCard) {
         return;
     }
@@ -86,17 +90,29 @@ function CardClick(event) {
 
     movesElement.textContent = coups;
 
+    lockBoard = true;
+
     checkmatch();
 
     // console.log(card);
 }
 
 function checkmatch() {
-    if (firstCard.dataset.image === secondCard.dataset.image) {
+
+    const isMatch = firstCard.dataset.image === secondCard.dataset.image;
+
+    if (isMatch) {
 
         firstCard.classList.add("matched");
         secondCard.classList.add("matched");
         // console.log("Match");
+
+        pairesTrouves++;
+
+        pairsElement.textContent = pairesTrouves;
+
+        resetCards();
+        checkVictory();
     }
     else {
         // console.log("Pas match");
@@ -106,12 +122,28 @@ function checkmatch() {
             firstCard.classList.remove("flipped");
             secondCard.classList.remove("flipped");
 
-            firstCard = null;
-            secondCard = null;
 
-        },1000 );
+            resetCards();
+
+        }, 1000);
 
     }
 }
 
+function resetCards() {
+
+    firstCard = null;
+    secondCard = null;
+
+    lockBoard = false;
+}
+
+function checkVictory() {
+
+    if (pairesTrouves === cards.length) {
+
+        messageElement.textContent =
+            " Félicitations , Vous avez trouvé toutes les paires ";
+    }
+}
 

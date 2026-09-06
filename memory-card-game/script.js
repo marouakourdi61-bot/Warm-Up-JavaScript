@@ -147,3 +147,27 @@ function checkVictory() {
     }
 }
 
+function startGame() {
+
+    gameBoard.innerHTML = "";
+
+    coups = 0;
+    pairesTrouves = 0;
+
+    firstCard = null;
+    secondCard = null;
+
+    lockBoard = false;
+
+    movesElement.textContent = 0;
+    pairsElement.textContent = 0;
+    messageElement.textContent = "";
+
+    shuffleCards();
+
+    createCards();
+}
+
+restartButton.addEventListener("click", startGame);
+
+startGame();
